@@ -28,7 +28,7 @@ public class MainApp {
                  "\nFirst Name = "+user.getFirstName() +
                  "\nLast Name = "+user.getLastName() +
                  "\nEmail = "+user.getEmail() +
-                 user.getCar().toString() + "\n");
+                 "\n" + user.getCar().toString() + "\n");
       }
 
       System.out.println(userService.getUserByCarDetails("Honda", 123));
