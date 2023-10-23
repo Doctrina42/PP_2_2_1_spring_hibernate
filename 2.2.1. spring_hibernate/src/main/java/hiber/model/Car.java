@@ -7,54 +7,61 @@ import javax.persistence.*;
 public class Car {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(name = "model")
+    @Column
     private String model;
 
-    @Column(name = "series")
+    @Column
     private int series;
 
-    public Car() {
-    }
+    @OneToOne(mappedBy = "car", cascade = CascadeType.ALL)
+    private User user;
+
+    public Car() {}
 
     public Car(String model, int series) {
         this.model = model;
         this.series = series;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Long getId() {
         return id;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public int getSeries() {
-        return series;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
+    public String getModel() {
+        return model;
+    }
+
     public void setModel(String model) {
         this.model = model;
+    }
+
+    public int getSeries() {
+        return series;
     }
 
     public void setSeries(int series) {
         this.series = series;
     }
 
-
     @Override
     public String toString() {
-        return "Car{" +
-                "id=" + id +
-                ", model='" + model + '\'' +
-                ", series=" + series +
-                '}';
+        return
+                "Model = '" + model + '\'' +
+                        ", series = " + series;
     }
 }

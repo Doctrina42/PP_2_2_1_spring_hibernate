@@ -1,18 +1,24 @@
 package hiber.dao;
 
+import hiber.model.Car;
 import hiber.model.User;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
+
 import java.util.List;
 
 @Repository
 public class UserDaoImp implements UserDao {
 
+   private final SessionFactory sessionFactory;
+
    @Autowired
-   private SessionFactory sessionFactory;
+   public UserDaoImp(SessionFactory sessionFactory) {
+      this.sessionFactory = sessionFactory;
+   }
 
    @Override
    public void add(User user) {
@@ -22,19 +28,13 @@ public class UserDaoImp implements UserDao {
    @Override
    @SuppressWarnings("unchecked")
    public List<User> listUsers() {
-      TypedQuery<User> query=sessionFactory.getCurrentSession().createQuery("from User");
+      TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User");
       return query.getResultList();
    }
 
    @Override
-   @SuppressWarnings("unchecked")
-   public User getUser(String model, int series) {
-      TypedQuery<User> query = sessionFactory
-              .getCurrentSession()
-              .createQuery("From User Where userCar.model =: model And userCar.series =: series");
-      query.setParameter("model", model);
-      query.setParameter("series", series);
-      return query.getSingleResult();
+   public User getUserByCarDetails(String model, int series) {
+      TypedQuery<hiber.model.Car> query = sessionFactory.getCurrentSession().createQuery("from Car where model = '" + model + "' and series = " + series);
+      return query.getSingleResult().getUser();
    }
-
 }

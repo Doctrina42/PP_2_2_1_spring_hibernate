@@ -7,8 +7,7 @@ import javax.persistence.*;
 public class User {
 
    @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
-   @Column(name = "id")
+   @GeneratedValue(strategy = GenerationType.SEQUENCE)
    private Long id;
 
    @Column(name = "name")
@@ -21,24 +20,25 @@ public class User {
    private String email;
 
    @OneToOne(cascade = CascadeType.ALL)
-   @JoinColumn(name = "car_id")
-   private Car userCar;
-
-   public Car getUserCar() {
-      return userCar;
-   }
-
-   public void setUserCar(Car userCar) {
-      this.userCar = userCar;
-   }
+   @JoinColumn(name = "series_id")
+   @MapsId
+   private Car car;
 
    public User() {}
-   
-   public User(String firstName, String lastName, String email, Car userCar) {
+
+   public User(String firstName, String lastName, String email, Car car) {
       this.firstName = firstName;
       this.lastName = lastName;
       this.email = email;
-      this.userCar = userCar;
+      this.car = car;
+   }
+
+   public Car getCar() {
+      return car;
+   }
+
+   public void setCar(Car car) {
+      this.car = car;
    }
 
    public Long getId() {
@@ -75,11 +75,6 @@ public class User {
 
    @Override
    public String toString() {
-      return "User{" +
-              "id=" + id +
-              ", firstName='" + firstName + '\'' +
-              ", lastName='" + lastName + '\'' +
-              ", email='" + email + '\'' +
-              '}';
+      return this.getFirstName();
    }
 }

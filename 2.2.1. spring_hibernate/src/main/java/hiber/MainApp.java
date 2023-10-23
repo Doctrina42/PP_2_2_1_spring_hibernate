@@ -24,15 +24,14 @@ public class MainApp {
 
       List<User> users = userService.listUsers();
       for (User user : users) {
-         System.out.println("Id = "+user.getId());
-         System.out.println("First Name = "+user.getFirstName());
-         System.out.println("Last Name = "+user.getLastName());
-         System.out.println("Email = "+user.getEmail());
-         System.out.println(user.getUserCar().toString());
-         System.out.println();
+         System.out.println("Id = "+user.getId() +
+                 "\nFirst Name = "+user.getFirstName() +
+                 "\nLast Name = "+user.getLastName() +
+                 "\nEmail = "+user.getEmail() +
+                 user.getCar().toString() + "\n");
       }
 
-      System.out.println(userService.getUser("Honda", 123));
+      System.out.println(userService.getUserByCarDetails("Honda", 123));
 
 
       context.close();
