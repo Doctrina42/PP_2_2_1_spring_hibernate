@@ -11,5 +11,5 @@ public interface UserService {
 
     List<User> listUsers();
 
-    User getUserByCarDetails(String model, int series);
+    List<User> getUserByCarDetails(String model, int series);
 }

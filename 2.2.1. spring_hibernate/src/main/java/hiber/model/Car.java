@@ -24,7 +24,6 @@ public class Car {
     public Car(String model, int series) {
         this.model = model;
         this.series = series;
-        this.user = getUser();
     }
 
     public User getUser() {
