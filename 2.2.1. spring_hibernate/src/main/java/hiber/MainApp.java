@@ -7,10 +7,12 @@ import hiber.service.UserService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 public class MainApp {
 
    public static void main(String[] args) {
+      Logger logger = Logger.getLogger(MainApp.class.getName());
       AnnotationConfigApplicationContext context =
               new AnnotationConfigApplicationContext(AppConfig.class);
 
@@ -28,23 +30,21 @@ public class MainApp {
 
       List<User> users = userService.listUsers();
       for (User user : users) {
-         System.out.println("Id = "+user.getId());
-         System.out.println("First Name = "+user.getFirstName());
-         System.out.println("Last Name = "+user.getLastName());
-         System.out.println("Email = "+user.getEmail());
-         System.out.println("Car = "+user.getCar().getModel() + " " + user.getCar().getSeries());
-         System.out.println();
+         logger.info("Id = "+user.getId());
+         logger.info("First Name = "+user.getFirstName());
+         logger.info("Last Name = "+user.getLastName());
+         logger.info("Email = "+user.getEmail());
+         logger.info("Car = "+user.getCar().getModel() + " " + user.getCar().getSeries());
       }
 
       List<User> usersWithCar = userService.getUserByCarDetails("X", 999);
 
       for (User user : usersWithCar) {
-         System.out.println("Id = "+user.getId());
-         System.out.println("First Name = "+user.getFirstName());
-         System.out.println("Last Name = "+user.getLastName());
-         System.out.println("Email = "+user.getEmail());
-         System.out.println("Car = "+user.getCar().getModel() + " " + user.getCar().getSeries());
-         System.out.println();
+         logger.info("Id = "+user.getId());
+         logger.info("First Name = "+user.getFirstName());
+         logger.info("Last Name = "+user.getLastName());
+         logger.info("Email = "+user.getEmail());
+         logger.info("Car = "+user.getCar().getModel() + " " + user.getCar().getSeries());
       }
 
       context.close();
